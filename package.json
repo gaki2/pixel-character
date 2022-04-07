@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-   "start" : "webpack serve",
-   "build": "webpack"
+    "start": "webpack serve",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -35,5 +35,8 @@
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.8.1"
+  },
+  "dependencies": {
+    "declaration-bundler-webpack-plugin": "^1.0.3"
   }
 }

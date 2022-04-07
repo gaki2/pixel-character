@@ -3,6 +3,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 // eslint-disable-next-line import/no-extraneous-dependencies
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const DeclarationBundlerPlugin = require("declaration-bundler-webpack-plugin");
 
 module.exports = {
   mode: "none",
@@ -16,7 +17,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: "ts-loader",
-        exclude: /node_modules/,
+        exclude: /node_modules|\.d\.ts$/,
       },
       {
         test: /\.css$/i,

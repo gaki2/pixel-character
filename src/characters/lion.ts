@@ -1,4 +1,4 @@
-import * as COLOR from "../utils/colors";
+import { COLOR } from "../util/colors";
 
 type Center = {
   x: number;
@@ -8,8 +8,18 @@ const PI2 = Math.PI * 2;
 
 export default class Lion {
   center: Center;
-  color: typeof COLOR;
   expression: string;
+  color: {
+    BROWN: string;
+    GREEN: string;
+    BLUE: string;
+    PINK: string;
+    ORANGE: string;
+    GRAY: string;
+    YELLOW: string;
+    BLACK: string;
+    WHITE: string;
+  };
 
   constructor(center: Center) {
     this.color = COLOR;
@@ -21,7 +31,7 @@ export default class Lion {
     ctx.save();
     ctx.lineWidth = 3;
     ctx.translate(this.center.x, this.center.y);
-    ctx.scale(1, 1);
+    ctx.scale(10, 10);
     this.drawArms(ctx);
     this.drawLegs(ctx);
     this.drawBody(ctx);
@@ -29,7 +39,7 @@ export default class Lion {
     ctx.restore();
   }
 
-  drawArms(ctx) {
+  drawArms(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = this.color.BROWN;
     // 오른팔
     ctx.beginPath();
@@ -45,7 +55,7 @@ export default class Lion {
     ctx.closePath();
   }
 
-  drawLegs(ctx) {
+  drawLegs(ctx: CanvasRenderingContext2D) {
     // 왼쪽 다리
     ctx.fillStyle = this.color.BROWN;
     ctx.beginPath();
@@ -61,9 +71,9 @@ export default class Lion {
     ctx.closePath();
   }
 
-  drawBody(ctx) {
+  drawBody(ctx: CanvasRenderingContext2D) {
     // 몸통
-    const body = ctx.roundRect(-37.5, +40, 75, 70, 30);
+    const body: CanvasRenderingContext2D = ctx.roundRect(-37.5, +40, 75, 70, 30);
     body.fill();
     body.stroke();
     // 흰 배
@@ -73,7 +83,7 @@ export default class Lion {
     white.stroke();
   }
 
-  drawHead(ctx) {
+  drawHead(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = this.color.BROWN;
     // 왼쪽 귀
     ctx.beginPath();
