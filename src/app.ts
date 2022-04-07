@@ -2,6 +2,8 @@ import "../style.css";
 import "./util/canvasFunction";
 import Lion from "./characters/lion";
 import Ripple from "./ripple";
+import Footer from "./footer";
+import Header from "./header";
 
 class App {
   canvas: HTMLCanvasElement;
@@ -13,6 +15,8 @@ class App {
   ctx: CanvasRenderingContext2D | null;
   ripple: Ripple;
   drawLion: boolean;
+  header: Header;
+  footer: Footer;
 
   constructor() {
     this.canvas = document.createElement("canvas");
@@ -23,7 +27,25 @@ class App {
     window.addEventListener("resize", this.resize.bind(this));
     this.lion = new Lion(this.center);
     window.requestAnimationFrame(this.animate.bind(this));
-    window.addEventListener("click", this.onClick.bind(this));
+    this.canvas.addEventListener("click", this.onClick.bind(this));
+
+    this.header = new Header();
+    this.header.render();
+    this.footer = new Footer(this.fullScreen.bind(this));
+    this.footer.render();
+  }
+
+  fullScreen(e: Event) {
+    e.preventDefault();
+    console.log(e);
+    if (!document.fullscreenElement) {
+      document.body.requestFullscreen();
+      this.footer.changeText(true);
+    }
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+      this.footer.changeText(false);
+    }
   }
 
   resize() {

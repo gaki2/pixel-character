@@ -31,7 +31,7 @@ export default class Lion {
     ctx.save();
     ctx.lineWidth = 3;
     ctx.translate(this.center.x, this.center.y);
-    ctx.scale(10, 10);
+    ctx.scale(9, 9);
     this.drawArms(ctx);
     this.drawLegs(ctx);
     this.drawBody(ctx);
