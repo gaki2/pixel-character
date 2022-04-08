@@ -20,23 +20,47 @@ export default class Lion {
     BLACK: string;
     WHITE: string;
   };
+  scale: { max: number; min: number; now: number };
 
   constructor(center: Center) {
     this.color = COLOR;
     this.center = center;
     this.expression = "normal";
+    this.scale = {
+      max: 9,
+      min: 1,
+      now: 6,
+    };
   }
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.save();
     ctx.lineWidth = 3;
     ctx.translate(this.center.x, this.center.y);
-    ctx.scale(9, 9);
+    ctx.scale(this.scale.now, this.scale.now);
     this.drawArms(ctx);
     this.drawLegs(ctx);
     this.drawBody(ctx);
     this.drawHead(ctx);
     ctx.restore();
+  }
+
+  resize(center: Center) {
+    console.log(this);
+    this.center.x = center.x;
+    this.center.y = center.y;
+  }
+
+  addScale() {
+    if (this.scale.now !== this.scale.max) {
+      this.scale.now += 1;
+    }
+  }
+
+  reduceScale() {
+    if (this.scale.now !== this.scale.min) {
+      this.scale.now -= 1;
+    }
   }
 
   drawArms(ctx: CanvasRenderingContext2D) {
