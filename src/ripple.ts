@@ -30,7 +30,7 @@ export default class Ripple {
     let lastX = false;
     for (let y = 0; y < Math.ceil(this.stageHeight / this.dotWidth) + 1; y += 1) {
       for (let x = 0; x < Math.ceil(this.stageWidth / this.dotWidth) + 1; x += 1) {
-        if (y * this.dotWidth + this.dotWidth > this.stageHeight) {
+        if (y * this.dotWidth + this.dotWidth >= this.stageHeight) {
           lastY = true;
         }
         if (x * this.dotWidth + this.dotWidth >= this.stageWidth) {

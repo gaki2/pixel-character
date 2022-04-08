@@ -34,7 +34,10 @@ export default class Dot {
     this.ctx = ctx;
     this.lastY = lastY;
     this.lastX = lastX;
-    this.color = this.getColor(this.ctx.getImageData(this.x, this.y, this.width, this.height).data);
+    this.color = this.getColor(
+      this.ctx.getImageData(this.x * window.devicePixelRatio, this.y * window.devicePixelRatio, this.width, this.height)
+        .data,
+    );
     this.radius = 0;
     this.radiusM = 30;
     this.radiusV = 0;
