@@ -8,6 +8,8 @@ export default class Ripple {
   stageWidth: number;
   dots: Dot[];
   pos: { x: number };
+  pixelRatio: number;
+  acc: number;
 
   constructor(stageWidth: number, stageHeight: number) {
     this.pos = {
@@ -18,10 +20,13 @@ export default class Ripple {
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
     this.dots = [];
+    this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
+    this.acc = 1.04;
   }
 
   reset() {
     this.pos.x = 0;
+    this.speed = 40;
   }
 
   pixelize(ctx: CanvasRenderingContext2D) {
@@ -38,13 +43,23 @@ export default class Ripple {
         } else {
           lastX = false;
         }
-        const dot = new Dot(x * this.dotWidth, y * this.dotWidth, this.dotWidth, this.dotWidth, ctx, lastY, lastX);
+        const dot = new Dot(
+          x * this.dotWidth,
+          y * this.dotWidth,
+          this.dotWidth,
+          this.dotWidth,
+          ctx,
+          lastY,
+          lastX,
+          this.pixelRatio,
+        );
         this.dots.push(dot);
       }
     }
   }
 
   animate() {
+    this.speed *= this.acc;
     this.pos.x += this.speed;
     for (let i = 0; i < this.dots.length; i += 1) {
       if (collide(this.pos.x, this.dots[i].x)) {

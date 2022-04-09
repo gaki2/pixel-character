@@ -29,7 +29,7 @@ export default class Lion {
     this.scale = {
       max: 9,
       min: 1,
-      now: 6,
+      now: 3,
     };
   }
 

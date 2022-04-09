@@ -29,6 +29,7 @@ class App {
     document.body.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
     this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
+
     this.resize();
     this.lion = new Lion(this.center);
     this.apeach = new Apeach(this.center);

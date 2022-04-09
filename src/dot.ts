@@ -17,6 +17,7 @@ export default class Dot {
   radiusM: number;
   radiusV: number;
   lastX: boolean;
+  pixelRatio: number;
   constructor(
     x: number,
     y: number,
@@ -25,6 +26,7 @@ export default class Dot {
     ctx: CanvasRenderingContext2D,
     lastY: boolean,
     lastX: boolean,
+    pixelRatio: number,
   ) {
     this.x = x;
     this.y = y;
@@ -34,9 +36,14 @@ export default class Dot {
     this.ctx = ctx;
     this.lastY = lastY;
     this.lastX = lastX;
+    this.pixelRatio = pixelRatio;
     this.color = this.getColor(
-      this.ctx.getImageData(this.x * window.devicePixelRatio, this.y * window.devicePixelRatio, this.width, this.height)
-        .data,
+      this.ctx.getImageData(
+        this.x * this.pixelRatio,
+        this.y * this.pixelRatio,
+        this.width * this.pixelRatio,
+        this.height * this.pixelRatio,
+      ).data,
     );
     this.radius = 0;
     this.radiusM = 30;
