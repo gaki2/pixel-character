@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const DeclarationBundlerPlugin = require("declaration-bundler-webpack-plugin");
 
 module.exports = {
-  mode: "none",
+  mode: "production",
   entry: "./src/app.ts",
   devtool: "inline-source-map",
   devServer: {
@@ -36,7 +36,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    filename: "index.js",
+    filename: "[chunkhash].js",
     path: path.resolve(__dirname, "dist"),
   },
 };

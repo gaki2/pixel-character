@@ -46,7 +46,6 @@ export default class Lion {
   }
 
   resize(center: Center) {
-    console.log(this);
     this.center.x = center.x;
     this.center.y = center.y;
   }
