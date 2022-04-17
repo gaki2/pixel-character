@@ -23,3 +23,9 @@ export const COLOR = {
   MILDPINK,
   RED,
 };
+
+export const THEME = {
+  lion: "rgb(127, 255, 212)",
+  apeach: "#ffcdd2",
+  tube: "#ffea00",
+};

@@ -21,8 +21,10 @@ export default class Lion {
     WHITE: string;
   };
   scale: { max: number; min: number; now: number };
+  name: string;
 
   constructor(center: Center) {
+    this.name = "lion";
     this.color = COLOR;
     this.center = center;
     this.expression = "normal";

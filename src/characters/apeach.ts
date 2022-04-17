@@ -22,8 +22,10 @@ export default class Apeach {
     RED: string;
   };
   scale: { max: number; min: number; now: number };
+  name: string;
 
   constructor(center: Center) {
+    this.name = "apeach";
     this.color = COLOR;
     this.center = center;
     this.scale = {

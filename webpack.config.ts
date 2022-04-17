@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const DeclarationBundlerPlugin = require("declaration-bundler-webpack-plugin");
 
 module.exports = {
-  mode: "production",
+  mode: "none",
   entry: "./src/app.ts",
   devtool: "inline-source-map",
   devServer: {

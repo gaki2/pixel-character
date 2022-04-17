@@ -6,6 +6,11 @@ import Footer from "./footer";
 import Header from "./header";
 import Apeach from "./characters/apeach";
 import SideButton from "./sideButton";
+import CircularQueue from "./circularQueue";
+import { THEME } from "./util/colors";
+import Tube from "./characters/tube";
+
+type CHARACTER = Lion | Apeach | Tube;
 
 class App {
   canvas: HTMLCanvasElement;
@@ -22,19 +27,24 @@ class App {
   apeach: Apeach;
   sideBtn: SideButton;
   scale: number;
-  nowCharacter: Lion | Apeach;
+  nowCharacter: CHARACTER;
+  characters: string[];
+  circularQueue: CircularQueue<string>;
+  tube: Tube;
+  themeColor: string;
 
   constructor() {
     this.canvas = document.createElement("canvas");
     document.body.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
     this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
-
     this.resize();
     this.lion = new Lion(this.center);
     this.apeach = new Apeach(this.center);
+    this.tube = new Tube(this.center);
+    this.characters = ["lion", "apeach", "tube"];
+    this.circularQueue = new CircularQueue<string>(this.characters);
 
-    window.requestAnimationFrame(this.animate.bind(this));
     this.header = new Header();
     this.header.render();
     this.footer = new Footer(this.fullScreen.bind(this));
@@ -47,7 +57,9 @@ class App {
     );
     this.sideBtn.render(document.body);
     this.nowCharacter = this.lion;
+
     window.addEventListener("resize", this.resize.bind(this));
+    window.requestAnimationFrame(this.animate.bind(this));
   }
 
   fullScreen(e: Event) {
@@ -86,10 +98,19 @@ class App {
 
   changeCharacter() {
     this.ripple = null;
-    if (this.nowCharacter === this.lion) {
-      this.nowCharacter = this.apeach;
-    } else {
-      this.nowCharacter = this.lion;
+    const nextCharacter = this.circularQueue.next();
+    switch (nextCharacter) {
+      case "lion":
+        this.nowCharacter = this.lion;
+        break;
+      case "apeach":
+        this.nowCharacter = this.apeach;
+        break;
+      case "tube":
+        this.nowCharacter = this.tube;
+        break;
+      default:
+        break;
     }
   }
 
@@ -110,17 +131,18 @@ class App {
     }
   }
 
+  changeThemeColor() {
+    this.themeColor = THEME[this.nowCharacter.name as keyof typeof THEME];
+    this.ctx!.fillStyle = this.themeColor;
+    document.body.style.backgroundColor = this.themeColor;
+  }
+
   animate() {
     window.requestAnimationFrame(this.animate.bind(this));
+    this.changeThemeColor();
     this.ctx?.clearRect(0, 0, this.stageWidth, this.stageHeight);
-    if (this.nowCharacter === this.lion) {
-      this.ctx!.fillStyle = "rgb(127, 255, 212)";
-    } else {
-      this.ctx!.fillStyle = "#ffcdd2";
-    }
     this.ctx?.fillRect(0, 0, this.stageWidth, this.stageHeight);
     this.nowCharacter.draw(this.ctx!);
-    // this.apeach.draw(this.ctx!);
     if (this.ripple) {
       this.ripple.animate();
     }
