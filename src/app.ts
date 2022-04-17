@@ -32,6 +32,7 @@ class App {
   circularQueue: CircularQueue<string>;
   tube: Tube;
   themeColor: string;
+  timer: any;
 
   constructor() {
     this.canvas = document.createElement("canvas");
@@ -57,9 +58,25 @@ class App {
     );
     this.sideBtn.render(document.body);
     this.nowCharacter = this.lion;
+    this.timer = null;
 
     window.addEventListener("resize", this.resize.bind(this));
     window.requestAnimationFrame(this.animate.bind(this));
+    window.addEventListener("wheel", this.Zoom.bind(this));
+  }
+
+  Zoom(e: WheelEvent) {
+    if (this.timer) {
+      window.clearTimeout(this.timer);
+    }
+
+    this.timer = window.setTimeout(() => {
+      if (e.deltaY < 0) {
+        this.changeScale(true); // 확대
+      } else {
+        this.changeScale(false); // 축소
+      }
+    }, 10);
   }
 
   fullScreen(e: Event) {
