@@ -27,5 +27,5 @@ export const COLOR = {
 export const THEME = {
   lion: "rgb(127, 255, 212)",
   apeach: "#ffcdd2",
-  tube: "#ffea00",
+  tube: "#F7E07E",
 };
